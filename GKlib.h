@@ -43,17 +43,6 @@
 #include <assert.h>
 #include <sys/stat.h>
 
-#if defined(__WITHPCRE__)
-  #include <pcreposix.h>
-#else
-  #if defined(USE_GKREGEX)
-    #include "gkregex.h"
-  #else
-    #include <regex.h>
-  #endif /* defined(USE_GKREGEX) */
-#endif /* defined(__WITHPCRE__) */
-
-
 
 #if defined(__OPENMP__) 
 #include <omp.h>
