@@ -2219,9 +2219,9 @@ float gk_csr_ComputeSimilarity(gk_csr_t *mat, int i1, int i2, int what,
         }
       }
       if (simtype == GK_CSR_COS)
-        sim = (stat1*stat2 > 0.0 ? sim/sqrt(stat1*stat2) : 0.0);
+        sim = (stat1*stat2 > 0.0f ? sim/sqrt(stat1*stat2) : 0.0f);
       else 
-        sim = (stat1+stat2-sim > 0.0 ? sim/(stat1+stat2-sim) : 0.0);
+        sim = (stat1+stat2-sim > 0.0f ? sim/(stat1+stat2-sim) : 0.0f);
       break;
 
     case GK_CSR_MIN:
@@ -2252,7 +2252,7 @@ float gk_csr_ComputeSimilarity(gk_csr_t *mat, int i1, int i2, int what,
           i2++;
         }
       }
-      sim = (stat1+stat2-sim > 0.0 ? sim/(stat1+stat2-sim) : 0.0);
+      sim = (stat1+stat2-sim > 0.0f ? sim/(stat1+stat2-sim) : 0.0f);
 
       break;
 
@@ -2284,7 +2284,7 @@ float gk_csr_ComputeSimilarity(gk_csr_t *mat, int i1, int i2, int what,
           i2++;
         }
       }
-      sim = (stat1 > 0.0 ? sim/stat1 : 0.0);
+      sim = (stat1 > 0.0f ? sim/stat1 : 0.0f);
 
       break;
 
@@ -2381,13 +2381,13 @@ float gk_csr_ComputePairSimilarity(gk_csr_t *mat_a, gk_csr_t *mat_b,
         }
       }
       if (simtype == GK_CSR_COS)
-        sim = (stat1*stat2 > 0.0 ? sim/sqrt(stat1*stat2) : 0.0);
+        sim = (stat1*stat2 > 0.0f ? sim/sqrt(stat1*stat2) : 0.0f);
       else 
-        sim = (stat1+stat2-sim > 0.0 ? sim/(stat1+stat2-sim) : 0.0);
+        sim = (stat1+stat2-sim > 0.0f ? sim/(stat1+stat2-sim) : 0.0f);
       break;
 
     case GK_CSR_MIN:
-      sim = stat1 = stat2 = 0.0;
+      sim = stat1 = stat2 = 0.0f;
       i1 = i2 = 0;
       while (i1<nind1 && i2<nind2) {
         if (i1 == nind1) {
@@ -2711,7 +2711,7 @@ gk_csr_t *gk_csr_MakeSymmetric(gk_csr_t *mat, int op)
     for (j=rowptr[i]; j<rowptr[i+1]; j++) {
       ids[nadj] = rowind[j]; 
       if (hasvals)
-        wgts[nadj] = (op == GK_CSR_SYM_AVG ? 0.5*rowval[j] : rowval[j]);
+        wgts[nadj] = (op == GK_CSR_SYM_AVG ? 0.5f*rowval[j] : rowval[j]);
       marker[rowind[j]] = nadj++;
     }
 
@@ -2721,7 +2721,7 @@ gk_csr_t *gk_csr_MakeSymmetric(gk_csr_t *mat, int op)
         if (op != GK_CSR_SYM_MIN) {
           ids[nadj] = colind[j]; 
           if (hasvals) 
-            wgts[nadj] = (op == GK_CSR_SYM_AVG ? 0.5*colval[j] : colval[j]);
+            wgts[nadj] = (op == GK_CSR_SYM_AVG ? 0.5f*colval[j] : colval[j]);
           nadj++;
         }
       }
@@ -2738,7 +2738,7 @@ gk_csr_t *gk_csr_MakeSymmetric(gk_csr_t *mat, int op)
               wgts[marker[colind[j]]] += colval[j];
               break;
             case GK_CSR_SYM_AVG:
-              wgts[marker[colind[j]]] = 0.5*(wgts[marker[colind[j]]] + colval[j]);
+              wgts[marker[colind[j]]] = 0.5f*(wgts[marker[colind[j]]] + colval[j]);
               break;
             default:
               errexit("Unsupported op for MakeSymmetric!\n");

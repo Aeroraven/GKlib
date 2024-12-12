@@ -1537,9 +1537,9 @@ gk_graph_t *gk_graph_MakeSymmetric(gk_graph_t *graph, int op)
     for (j=rowptr[i]; j<rowptr[i+1]; j++) {
       ids[nadj] = rowind[j]; 
       if (wgts)
-        wgts[nadj] = (op == GK_CSR_SYM_AVG ? 0.5*rowval[j] : rowval[j]);
+        wgts[nadj] = (op == GK_CSR_SYM_AVG ? 0.5f*rowval[j] : rowval[j]);
       if (iwgts)
-        iwgts[nadj] = (op == GK_CSR_SYM_AVG ? 0.5*irowval[j] : irowval[j]);
+        iwgts[nadj] = (op == GK_CSR_SYM_AVG ? 0.5f*irowval[j] : irowval[j]);
       marker[rowind[j]] = nadj++;
     }
 
@@ -1549,9 +1549,9 @@ gk_graph_t *gk_graph_MakeSymmetric(gk_graph_t *graph, int op)
         if (op != GK_CSR_SYM_MIN) {
           ids[nadj] = colind[j]; 
           if (wgts) 
-            wgts[nadj] = (op == GK_CSR_SYM_AVG ? 0.5*colval[j] : colval[j]);
+            wgts[nadj] = (op == GK_CSR_SYM_AVG ? 0.5f*colval[j] : colval[j]);
           if (iwgts) 
-            iwgts[nadj] = (op == GK_CSR_SYM_AVG ? 0.5*icolval[j] : icolval[j]);
+            iwgts[nadj] = (op == GK_CSR_SYM_AVG ? 0.5f*icolval[j] : icolval[j]);
           nadj++;
         }
       }
